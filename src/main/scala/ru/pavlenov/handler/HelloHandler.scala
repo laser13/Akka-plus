@@ -1,3 +1,5 @@
+package ru.pavlenov.handler
+
 /**
  * ⓭ + 16
  * Какой сам? by Pavlenov Semen 24.07.14.
@@ -8,9 +10,10 @@
  * ${RETURN}
  */
 
-import org.mashupbots.socko.events.HttpRequestEvent
-import akka.actor.Actor
 import java.util.Date
+
+import akka.actor.Actor
+import org.mashupbots.socko.events.HttpRequestEvent
 
 /**
  * Hello processor writes a greeting and stops.
