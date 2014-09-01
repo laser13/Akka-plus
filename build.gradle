@@ -1,27 +1,73 @@
 apply plugin: 'scala'
 apply plugin: 'idea'
+apply plugin: 'application'
+
+group 'ru.pavlenov'
+archivesBaseName = "akka_2.11"
+mainClassName = 'ru.pavlenov.Main'
 
 sourceCompatibility = 1.8
 version = '1.0'
 
+ext {
+    scalaVersion = '2.10.4'
+    scalaLibVersion = '2.10'
+    slf4jVersion = '1.7.6'
+    log4j2Version = '2.0-beta9'
+}
+
 repositories {
     mavenCentral()
+    maven {
+        url "http://repo.typesafe.com/typesafe/releases/"
+    }
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.11.1'
-    testCompile "org.scala-lang:scala-library:2.11.1"
+    /* Scala */
+    compile("org.scala-lang:scala-library:$scalaVersion")
+
+    /* Socko server */
+//    compile("org.mashupbots.socko:socko-webserver_$scalaLibVersion:0.4.2")
+//    compile("com.typesafe.akka:akka-actor_$scalaLibVersion:2.3.4")
+
+    /* Mongo */
+//    compile("org.reactivemongo:reactivemongo_$scalaLibVersion:0.10.0")
+
+    //Utils
+//    compile("com.github.nscala-time:nscala-time_$scalaLibVersion:1.2.0")
+//    compile("com.typesafe:config:1.2.1")
+
+    //Logging
+//    compile("com.typesafe.scala-logging:scala-logging-slf4j_$scalaLibVersion:2.1.2")
+//    compile("org.slf4j:slf4j-api:$slf4jVersion")
+//    compile("org.slf4j:jcl-over-slf4j:$slf4jVersion")
+//    compile("org.slf4j:jul-to-slf4j:$slf4jVersion")
+//    compile("org.apache.logging.log4j:log4j-api:$log4j2Version")
+//    compile("org.apache.logging.log4j:log4j-core:$log4j2Version")
+//    compile("org.apache.logging.log4j:log4j-slf4j-impl:$log4j2Version")
+
+    /*Testing */
+//    testCompile("org.scalatest:scalatest_$scalaLibVersion:2.2.0")
+//    testCompile("org.mockito:mockito-all:1.9.5")
+//    testCompile("org.hamcrest:hamcrest-all:1.3")
+//    testCompile("junit:junit:4.10")
 }
 
 tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = ["-feature", "-language:implicitConversions"]
     scalaCompileOptions.useAnt = false
 }
 
-dependencies {
-    compile group: 'org.mashupbots.socko', name: 'socko-webserver_2.11', version: '0.5.0'
-    compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.3.4'
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+tasks.withType(Test) {
+    maxParallelForks = 1
 }
+
+//test {
+//    testLogging {
+//        events 'started', 'passed'
+//    }
+//}
 
 //sourceSets {
 //    main {
